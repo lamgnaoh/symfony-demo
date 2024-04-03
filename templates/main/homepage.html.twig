@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Homepage{% endblock %}
+
+{% block body %}
+<h1> Welcome to homepage </h1>
+
+
+<div>
+    <p>Number of descriptor: {{ numberVisitor }}</p>
+
+    {% if numberVisitor > 50 %}
+        {# this is a comment #}
+        <p>Thank you for your description</p>
+    {% endif %}
+</div>
+{% endblock %}
+

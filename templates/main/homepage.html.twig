@@ -7,10 +7,16 @@
 
 
 <div>
-    <p>Number of products : {{ numsProduct }}</p>
+    <p>Number of products : {{ products | length }}</p>
 
     {# this is a comment #}
-    <p>Thank you for your buying</p>
+    <ul>
+        {% for product in products %}
+            <li>
+               <a href="{{ path('app_product_product_detail' , {id: product.id} ) }}">{{ product.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
 

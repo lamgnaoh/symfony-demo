@@ -13,10 +13,9 @@ class MainController extends AbstractController
     public function homepage(ProductRepository $repository): Response
     {
         $products = $repository->findAll();
-        $numsProduct = count($products);
 
         return $this->render('main/homepage.html.twig', [
-            '$numsProduct' => $numsProduct,
+            'products' => $products,
         ]);
     }
 }

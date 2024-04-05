@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+    <table>
+        <tr>
+            <th>Price:</th>
+            <td>{{ product.price }} $</td>
+        </tr>
+        <tr>
+            <th>In stock:</th>
+            <td>{{ product.inStock ? 'In stock' : 'Out of stock' }}</td>
+        </tr>
+    </table>
+{% endblock %}

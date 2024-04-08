@@ -15,6 +15,7 @@
                 <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Category</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -26,27 +27,16 @@
                     </td>
                     <td>{{ product.price }}</td>
                     <td></td>
+                    <td>
+                        <a href="{{ path('app_product_form' , { id: product.id }) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ path('app_product_delete' , { id: product.id }) }}" data-id="{{ product.id }}" class="btn btn-danger delete-btn" id="deleteBtn">Delete</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
-        <h1>Create new product</h1>
-
-        <div class="col-6">
-            <form action="{{ path('app_product_create') }}" class="row g-3" method="post">
-                <div class="col-12">
-                    <label class="form-label" for="name">Product Name:</label>
-                    <input class="form-control" type="text" name="name" id="name">
-                </div>
-                <div class="col-12">
-                    <label class="form-label" for="price">Price:</label>
-                    <input class="form-control" type="text" name="price" id="price">
-                </div>
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Create</button>
-                </div>
-            </form>
+        <div>
+            <a href="{{ path('app_product_create') }}" class="btn btn-primary"> Create new Product</a>
         </div>
     </div>
 {% endblock %}

@@ -5,6 +5,11 @@ framework:
         #auto_mapping:
         #    App\Entity\: []
 
+    # auto_mapping option is options to define which entities should be introspected by Symfony to add automatic validation constraints.
+    # empty array means all entities belong to that namespace will add automatic validation
+        auto_mapping:
+            App\Entity\: []
+
 when@test:
     framework:
         validation:

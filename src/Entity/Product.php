@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -16,9 +17,11 @@ class Product
     private int $id;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 10, minMessage: 'name must be at least 10 characters')]
     private string $name;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'price must not blank')]
     private float $price;
 
     #[ORM\Column]

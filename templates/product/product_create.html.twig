@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Create new product{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if productForm is defined and productForm.vars.value is not null %}
+            <h1>Edit product</h1>
+        {%else %}
+            <h1>Create new product</h1>
+        {% endif %}
+        <div class="col-6">
+
+            {{ form_start(productForm) }}
+            {{ form_widget(productForm) }}
+            {% if productForm is defined and productForm.vars.value is not null %}
+                <input type="hidden" name="id" value="{{ productForm.vars.value.id }}">
+            {%endif %}
+            {% if productForm is defined and productForm.vars.value is not null %}
+                <button class="btn btn-primary" type="submit">Edit</button>
+            {%else %}
+                <button class="btn btn-primary" type="submit">Create</button>
+            {% endif %}
+            {{ form_end(productForm) }}
+        </div>
+    </div>
+{% endblock %}
+

@@ -23,3 +23,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    admin.category:
+        class: App\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category , model_class: App\Entity\Category , group: "Category" }
+    admin.blog_post:
+        class: App\Admin\ProductAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Product, manager_type: orm, label: Product , group: "Product" }

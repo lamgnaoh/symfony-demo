@@ -14,6 +14,22 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
+    #[Route('', name: 'app_product_list', methods: ['GET'])]
+    public function list(Request $request, ProductRepository $repository): Response
+    {
+        //        dd($request);
+        $name = $request->query->get('name');
+        if (null == $name) {
+            $products = $repository->findAll();
+        } else {
+            $products = $repository->findByName($name);
+        }
+
+        return $this->render('main/homepage.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
     #[Route('/{id<\d+>}', name: 'app_product_product_detail', methods: ['GET'])]
     public function get(int $id, ProductRepository $repository): Response
     {
@@ -116,6 +132,7 @@ class ProductController extends AbstractController
     {
         $repository->delete($product);
         $this->addFlash('success', ['Product delete successfully']);
+
         return $this->redirectToRoute('app_main_homepage');
     }
 }

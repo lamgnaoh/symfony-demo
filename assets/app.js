@@ -6,6 +6,7 @@
  */
 import './styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap' // js file of bootstrap
 
 let deleteBtns = document.getElementsByClassName(`delete-btn`);
 
@@ -22,5 +23,7 @@ Array.from(deleteBtns).forEach((deleteBtn) => {
         });
     });
 });
+
+let searchForm = document.
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

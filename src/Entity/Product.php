@@ -134,4 +134,9 @@ class Product
 
         return $this;
     }
+
+    public function setCategories(Collection $categories): void
+    {
+        $this->categories = $categories;
+    }
 }

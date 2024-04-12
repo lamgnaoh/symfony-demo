@@ -56,7 +56,7 @@
                     <td>{{ product.price }}</td>
                     <td></td>
                     <td>
-                        <a href="{{ path('app_product_form' , { id: product.id }) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ path('app_product_edit_form' , { id: product.id }) }}" class="btn btn-warning">Edit</a>
                         <a href="{{ path('app_product_delete' , { id: product.id }) }}" data-id="{{ product.id }}" class="btn btn-danger delete-btn" id="deleteBtn">Delete</a>
                     </td>
                 </tr>

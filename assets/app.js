@@ -10,6 +10,7 @@ import 'bootstrap' // js file of bootstrap
 
 let deleteBtns = document.getElementsByClassName(`delete-btn`);
 
+// const $ = require('jquery');
 Array.from(deleteBtns).forEach((deleteBtn) => {
     deleteBtn.addEventListener('click', function (event) {
         event.preventDefault();
@@ -24,6 +25,7 @@ Array.from(deleteBtns).forEach((deleteBtn) => {
     });
 });
 
-let searchForm = document.
+
+
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

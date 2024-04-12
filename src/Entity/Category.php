@@ -24,7 +24,8 @@ class Category
     #[ORM\Column]
     private \DateTimeImmutable $updatedAt;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories')]
+    #[ORM\JoinTable(name: 'category_product')]
     private Collection $products;
 
     public function __construct()

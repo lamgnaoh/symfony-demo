@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductForm;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/edit', name: 'app_product_edit', methods: ['POST', 'PUT'])]
-    public function edit(Request $request, ProductRepository $repository): ?Response
+    public function edit(Request $request, ProductRepository $repository, CategoryRepository $category_repository): ?Response
     {
         //        dd($request);
         $productId = $request->request->get('id');
@@ -54,7 +55,7 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('app_main_homepage');
         }
-        $productForm = $this->createForm(ProductForm::class);
+        $productForm = $this->createForm(ProductForm::class, $product); // need to pass $product.If not, productForm create new product entity object
         $productForm->handleRequest($request);
         $formData = $productForm->getData();
         $product->setName($formData->getName());
@@ -66,29 +67,33 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_main_homepage');
     }
 
+    #[Route('/edit', name: 'app_product_edit_form', methods: ['GET'])]
+    public function editForm(Request $request, ProductRepository $repository): Response
+    {
+        //        dd($request);
+        $productId = $request->query->get('id');
+        $product = $repository->find($productId);
+        if (null == $product) {
+            $this->addFlash('error', ['Product not found']);
+
+            return $this->redirectToRoute('app_main_homepage');
+        }
+        $productForm = $this->createForm(ProductForm::class, null, [
+            'action' => $this->generateUrl('app_product_edit'),
+            'method' => 'PUT',
+        ]);
+
+        $productForm->setData($product);
+
+        return $this->render('product/product_create.html.twig',
+            ['productForm' => $productForm->createView()]
+        );
+    }
+
     #[Route('/create', name: 'app_product_form', methods: ['GET'])]
     public function create(Request $request, ProductRepository $repository): Response
     {
         //        creat a form
-        if ($request->query->get('id')) {
-            $productId = $request->query->get('id');
-            $product = $repository->find($productId);
-            if (null == $product) {
-                $this->addFlash('error', ['Product not found']);
-
-                return $this->redirectToRoute('app_main_homepage');
-            }
-            $productForm = $this->createForm(ProductForm::class, null, [
-                'action' => $this->generateUrl('app_product_edit'),
-                'method' => 'PUT',
-            ]);
-
-            $productForm->setData($product);
-
-            return $this->render('product/product_create.html.twig',
-                ['productForm' => $productForm->createView()]
-            );
-        }
         $productForm = $this->createForm(ProductForm::class);
 
         return $this->render('product/product_create.html.twig',

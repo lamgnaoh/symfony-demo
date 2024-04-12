@@ -45,4 +45,14 @@ class CategoryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findByName(string $name): array
+    {
+        return $this->createQueryBuilder('c')
+                    ->andWhere('c.name like :name')
+                    ->setParameter('name', '%'.$name.'%')
+                    ->orderBy('c.name', 'ASC')
+                    ->setMaxResults(10)
+                    ->getQuery()
+                    ->getResult();
+    }
 }

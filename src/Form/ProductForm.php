@@ -22,6 +22,7 @@ class ProductForm extends AbstractType
             'choice_label' => 'name',
             'multiple' => true,
             'by_reference' => false, // important to call addCategory and removeCategory in ProductEntity
+            'attr' => ['class' => 'form-control select2-enable'],
         ]);
     }
 

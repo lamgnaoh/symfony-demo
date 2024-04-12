@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,6 +17,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[SerializedName('text')]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -72,13 +74,13 @@ class Category
         $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
+//    /**
+//     * @return Collection<int, Product>
+//     */
+//    public function getProducts(): Collection
+//    {
+//        return $this->products;
+//    }
 
     public function addProduct(Product $product): static
     {

@@ -25,6 +25,26 @@ Array.from(deleteBtns).forEach((deleteBtn) => {
     });
 });
 
+// enable select2
+jQuery(document).ready(function (){
+    $('.select2-enable').select2({
+        ajax: {
+            url:'/api/category',
+            data: (params) => {
+                return {
+                    name: params.term
+                }
+            },
+            processResults: function (data) {
+                // Transforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data
+                };
+            }
+        },
+        minimumInputLength: 3 // only start searching when the user has input 3 or more characters
+    });
+})
 
 
 

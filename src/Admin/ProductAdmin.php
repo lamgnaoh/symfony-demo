@@ -8,7 +8,9 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,11 +23,9 @@ class ProductAdmin extends AbstractAdmin
         $form
             ->add('name', TextType::class)
             ->add('price', NumberType::class)
-            ->add('categories', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
+            ->add('categories', ModelAutocompleteType::class, [ // add filter to be autocomplete using select2
+                'property' => 'name',
                 'multiple' => true,
-                'by_reference' => false, // important to call addCategory and removeCategory in ProductEntity
             ]);
     }
 
@@ -33,12 +33,12 @@ class ProductAdmin extends AbstractAdmin
     {
         $datagrid
             ->add('name')
-            ->add('categories', null, [
+            ->add('categories', ModelFilter::class, [ // add filter to be autocomplete using select2
                 'label' => 'Category', // Set the label here
-                'field_type' => EntityType::class,
+                'field_type' => ModelAutocompleteType::class,
                 'field_options' => [
                     'class' => Category::class,
-                    'choice_label' => 'name',
+                    'property' => 'name',
                 ],
             ])
         ;
@@ -51,7 +51,13 @@ class ProductAdmin extends AbstractAdmin
         $list
             ->addIdentifier('name')
             ->add('price')
-            ->add('categories');
+            ->add('categories')
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]);
     }
 
     protected function configureShowFields(ShowMapper $show): void

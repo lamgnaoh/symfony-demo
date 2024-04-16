@@ -31,4 +31,4 @@ services:
     admin.blog_post:
         class: App\Admin\ProductAdmin
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Product, manager_type: orm, label: Product , group: "Product" }
+            - { name: sonata.admin, model_class: App\Entity\Product, controller: App\Controller\ProductAdminController , manager_type: orm, label: Product , group: "Product" }
